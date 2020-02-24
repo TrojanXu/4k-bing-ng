@@ -1,0 +1,11 @@
+library:
+    bing:
+        path: d:\Pictures\4KWallpaper\Bing
+        pretain_last_images: 2
+        suffix: png
+    ng:
+        path: d:\Pictures\4KWallpaper\NG
+        pretain_last_images: 1
+        suffix: png
+
+image_source: bing
