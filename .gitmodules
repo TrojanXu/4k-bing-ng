@@ -1,3 +1,5 @@
 [submodule "3rdparty/mmsr"]
 	path = 3rdparty/mmsr
 	url = https://github.com/TrojanXu/mmsr.git
+	branch = master
+	update = merge
