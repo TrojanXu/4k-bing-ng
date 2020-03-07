@@ -1,11 +1,16 @@
 library:
     bing:
-        path: d:\Pictures\4KWallpaper\Bing
+        path: path/to/Bing
         pretain_last_images: 1000
         suffix: png
     ng:
-        path: d:\Pictures\4KWallpaper\NG
+        path: path/to/NG
         pretain_last_images: 1000
         suffix: png
 
 image_source: bing
+model_file:
+    X2:
+        ../models/latest_x2.pth
+        #../models/latest_x2.onnx
+set_wallpaper: True

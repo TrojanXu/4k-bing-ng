@@ -26,17 +26,19 @@ class AddCaption(Step):
 
 
 class SuperResolution(Step):
-    def __init__(self, scale):
+    def __init__(self, config):
         super(SuperResolution, self).__init__()
-        self._scale = scale
+        self._model_path = config['model_file']['X2']
     
     def execute(self, in_img):
         data_type = in_img.data.dtype
         img = np.transpose(in_img.data.astype(np.float32), [2, 0, 1])
-        img = np.expand_dims(img,axis=0) # nchw
+        img = np.expand_dims(img, axis=0) # nchw
         img = img[:, [2, 1, 0], :, :] / 255.0
                 
         '''
+        # select onnx if you would like to. 
+        # TensorRT is not implemented now, but you can run it directy with onnx model.
         sess = rt.InferenceSession("../models/exported.onnx", providers=['CUDAExecutionProvider'])
         sess.disable_fallback()
         sess_opt = sess.get_session_options()
@@ -48,7 +50,7 @@ class SuperResolution(Step):
         torch_input = torch.from_numpy(img).cuda()
         device = torch.device('cuda')
         model = arch.RRDBNet(in_nc=3, out_nc=3, nf=64, nb=23)
-        model.load_state_dict(torch.load('../models/180000_G.pth'), strict=True)
+        model.load_state_dict(torch.load(self._model_path), strict=True)
         model.eval()
         model = model.to(device)
         with torch.no_grad():
