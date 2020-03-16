@@ -34,9 +34,11 @@ if __name__ == "__main__":
     lib = ImageLibrary(config)
     img = fetch_image(config)
     enhanced_img = copy.deepcopy(img)
-    steps = [SuperResolution(config)]
+    scale = config['library'][config['image_source']]['scale']
+    steps = [SuperResolution(config['model_file']['x{}'.format(scale)], scale), Denoise(config['model_file']['denoise'])]
     for step in steps:
         step.execute(enhanced_img)
+        del step
 
     lib.append(img.name + '.' + config['library'][config['image_source']]['suffix'], img.data, enhanced_img.data)
     

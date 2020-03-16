@@ -5,39 +5,7 @@ import cv2
 import re
 import ssl
 import json
-
-class DownloadedImage(object):
-    def __init__(self, img, name, caption, description="", credit=""):
-        self._caption = caption
-        self._name = name
-        self._data = img
-        self._description = description
-        self._credit = credit
-    
-    @property
-    def data(self):
-        return self._data
-
-    @data.setter
-    def data(self, data):
-        self._data = data
-    
-    @property
-    def caption(self):
-        return self._caption
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def credit(self):
-        return self._credit
-
-    @property
-    def description(self):
-        return self._description       
-
+from image_content import ImageContent
 
 def download_bing_image(idx=0):
     # Getting the XML File
@@ -72,7 +40,7 @@ def download_bing_image(idx=0):
     filename, _ = urlretrieve(url.replace('_1366x768', '_1920x1200'))
     img = cv2.imread(filename, cv2.IMREAD_UNCHANGED)
 
-    return DownloadedImage(img, name, caption)
+    return ImageContent(img, name, caption)
 
 
 def download_ng_image(idx=0):
@@ -98,7 +66,7 @@ def download_ng_image(idx=0):
     name = date.strftime('%d-%m-%Y')
     print('Downloading: ', name)
 
-    return DownloadedImage(img, name, title, description, credit)
+    return ImageContent(img, name, title, description, credit)
 
 
 def test():

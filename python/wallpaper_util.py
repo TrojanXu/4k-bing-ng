@@ -11,11 +11,16 @@ def set_linux_wallpaper(pic_path):
     os.system(''.join(['gsettings set org.gnome.desktop.background picture-uri file://', pic_path]))
     print('Wallpaper is set.')
 
+def set_mac_wallpaper(pic_path):
+    from appscript import app, mactypes
+    app('Finder').desktop_picture.set(mactypes.File(pic_path))
 
 def set_wallpaper(pic_path):
     if sys.platform.startswith('win32'):
         set_windows_wallpaper(pic_path)
     elif sys.platform.startswith('linux'):
         set_linux_wallpaper(pic_path)
+    elif sys.platform.startswith('darwin'):
+        set_mac_wallpaper(pic_path)
     else:
         print('OS not supported.')

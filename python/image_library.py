@@ -1,10 +1,11 @@
 import cv2
 import os
+import sys
 
 class ImageLibrary(object):
     def __init__(self, config):
         self._image_source = config['image_source']
-        self._lib_path = config['library'][self._image_source]['path']
+        self._lib_path = self._get_lib_path(config['library'][self._image_source])
         
         if not os.path.exists(self._lib_path):
             os.makedirs(self._lib_path)
@@ -45,3 +46,11 @@ class ImageLibrary(object):
         enhanced_img_path = raw_img_path.replace('raw', 'enhanced')
         os.remove(raw_img_path)
         os.remove(enhanced_img_path)
+
+    def _get_lib_path(self, path_dict):
+        if sys.platform.startswith('win32'):
+            return path_dict['win_path']
+        elif sys.platform.startswith('linux'):
+            return path_dict['linux_path']
+        else:
+            return path_dict['mac_path']

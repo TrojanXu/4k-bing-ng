@@ -1,16 +1,29 @@
 library:
     bing:
-        path: path/to/Bing
+        win_path: D:\Pictures\4KWallpaper\Bing
+        linux_path: /path/to/Bing
+        mac_path: /Users/xth/Pictures/Wallpapers/Bing
         pretain_last_images: 1000
         suffix: png
+        scale: 2
+        denoise: True
     ng:
-        path: path/to/NG
+        win_path: D:\Pictures\4KWallpaper\NG
+        linux_path: /path/to/NG
+        mac_path: /Users/xth/Pictures/Wallpapers/NG
         pretain_last_images: 1000
         suffix: png
+        scale: 2
+        denoise: True
 
 image_source: bing
 model_file:
-    X2:
+    x2:
         ../models/latest_x2.pth
         #../models/latest_x2.onnx
+    x4:
+        /path/to/model
+    denoise:
+        #../models/denoise.pb
+        ../models/denoise.onnx
 set_wallpaper: True
